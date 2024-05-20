@@ -4,3 +4,9 @@ export interface Column {
 }
 
 export type ID = string | number;
+
+export interface Task {
+  id: ID;
+  columId: ID;
+  content: string;
+}

@@ -1,18 +1,24 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { TrashIcon } from '../icons/TrashIcon';
-import { Column, ID } from '../types';
+import { Column, ID, Task } from '../types';
 import { useState } from 'react';
+import { PlusIcon } from '../icons';
+import { TaskCard } from './TaskCard';
 
 interface Props {
   column: Column;
   deleteColumn: (id: ID) => void;
   updateColumn: (id: ID, title: string) => void;
+  createTask: (columnId: ID) => void;
+  tasks: Task[];
 }
 export const ColumnContainer = ({
   column,
   deleteColumn,
   updateColumn,
+  createTask,
+  tasks,
 }: Props) => {
   const [editMode, setEditMode] = useState(false);
   const {
@@ -82,8 +88,18 @@ export const ColumnContainer = ({
           <TrashIcon />
         </button>
       </div>
-      <div className='flex flex-grow'></div>
-      <div></div>
+      <div className='flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto'>
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </div>
+      <button
+        onClick={() => createTask(column.id)}
+        className='flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black'
+      >
+        <PlusIcon />
+        Add task
+      </button>
     </div>
   );
 };
