@@ -42,6 +42,15 @@ export const KanbanBoard = () => {
     const filteredTasks = tasks.filter((task) => task.id !== id);
     setTasks(filteredTasks);
   };
+  const updateTask = (id: ID, content: string) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, content };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
   const createColumn = () => {
     const columnToAdd: Column = {
       id: generateId(),
@@ -108,6 +117,7 @@ export const KanbanBoard = () => {
                   updateColumn={updateColumn}
                   createTask={createTask}
                   deleteTask={deleteTask}
+                  updateTask={updateTask}
                   tasks={tasks.filter((task) => task.columId === column.id)}
                 />
               ))}
@@ -129,8 +139,9 @@ export const KanbanBoard = () => {
                 deleteColumn={deleteColumn}
                 updateColumn={updateColumn}
                 createTask={createTask}
-                tasks={tasks.filter((task) => task.columId === activeColumn.id)}
                 deleteTask={deleteTask}
+                updateTask={updateTask}
+                tasks={tasks.filter((task) => task.columId === activeColumn.id)}
               />
             )}
           </DragOverlay>,
