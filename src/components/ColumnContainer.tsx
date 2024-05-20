@@ -1,3 +1,5 @@
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { TrashIcon } from '../icons/TrashIcon';
 import { Column, ID } from '../types';
 
@@ -6,10 +8,43 @@ interface Props {
   deleteColumn: (id: ID) => void;
 }
 export const ColumnContainer = ({ column, deleteColumn }: Props) => {
-  return (
-    <div className='bg-columnBackgroundColor w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col'>
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: column.id,
+    data: {
+      type: 'Column',
+      column,
+    },
+  });
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
+  if (isDragging) {
+    return (
       <div
-        className='bg-mainBackgroundColor text-base h-[60px] cursor-grab rounded-md rounded-b-none
+        ref={setNodeRef}
+        style={style}
+        className='bg-columnBackgroundColor opacity-40 border-2 border-rose-500 w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col'
+      ></div>
+    );
+  }
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className='bg-columnBackgroundColor w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col'
+    >
+      <div
+        {...attributes}
+        {...listeners}
+        className='bg-mainBackgroundColor text-base h-[60px] !cursor-grab rounded-md rounded-b-none
       p-3 font-bold border-4 border-columnBackgroundColor flex items-center justify-between'
       >
         <div className='flex gap-2'>
