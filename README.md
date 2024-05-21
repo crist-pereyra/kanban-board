@@ -55,8 +55,9 @@ kanban-board/
 │   ├── assets/             # Static assets
 │   ├── components/         # React components
 │   ├── hooks/              # Custom hooks
-│   ├── pages/              # Page components
-│   ├── store/              # Zustand store
+│   ├── icons/              # Icons
+│   ├── stores/             # Zustand store
+│   ├── App.css             # Styles
 │   ├── App.tsx             # Main App component
 │   ├── index.tsx           # Entry point
 ├── .gitignore              # Git ignore file
@@ -72,7 +73,6 @@ kanban-board/
 
 - **Drag and Drop**: Effortlessly move tasks between columns using dnd-kit.
 - **State Management**: Efficient and minimal state management with Zustand.
-- **Responsive Design**: Fully responsive layout thanks to Tailwind CSS.
 - **Type Safety**: Benefit from TypeScript's type-checking to minimize errors
 
 ## 📜 License
