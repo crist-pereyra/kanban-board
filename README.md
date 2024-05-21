@@ -1,5 +1,7 @@
 # Kanban Board 📝
 
+![Kanban Preview](./kanban-preview.png)
+
 Welcome to the **Kanban Board** project! This is a modern, intuitive, and feature-rich Kanban Board built with the following awesome technologies:
 
 - ⚡ **Vite** for blazing fast project setup and development
