@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { TrashIcon } from '../icons';
 import { ID, Task } from '../types';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Props {
   task: Task;
@@ -11,14 +13,49 @@ export const TaskCard = ({ task, deleteTask, updateTask }: Props) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: task.id,
+    data: {
+      type: 'Task',
+      task,
+    },
+    disabled: isEditMode,
+  });
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
   const toggleEditMode = () => {
     setIsEditMode((prev) => !prev);
     setIsMouseOver(false);
   };
-
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className='bg-mainBackgroundColor opacity-30 p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl border-2 border-red-500 cursor-grab relative task'
+      ></div>
+    );
+  }
   if (isEditMode) {
     return (
-      <div className='bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative'>
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className='bg-mainBackgroundColor p-2.5 h-[100px] min-h-[100px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-rose-500 cursor-grab relative'
+      >
         <textarea
           value={task.content}
           autoFocus
@@ -38,6 +75,10 @@ export const TaskCard = ({ task, deleteTask, updateTask }: Props) => {
   }
   return (
     <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
       onClick={toggleEditMode}
       onMouseEnter={() => setIsMouseOver(true)}
       onMouseLeave={() => setIsMouseOver(false)}
