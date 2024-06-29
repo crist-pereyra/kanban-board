@@ -2,6 +2,10 @@
 
 ![Kanban Preview](./kanban-preview.png)
 
+## 🌐 Live Demo
+
+Explore the live demonstration of the project: [kanban-board](https://kanban-board-beta-three.vercel.app/)
+
 Welcome to the **Kanban Board** project! This is a modern, intuitive, and feature-rich Kanban Board built with the following awesome technologies:
 
 - ⚡ **Vite** for blazing fast project setup and development
@@ -42,7 +46,7 @@ Start the development server with the following command:
 npm run dev
 ```
 
-Open your browser and navigate to http://localhost:3000 to see the Kanban Board in action!
+Open your browser and navigate to http://localhost:5173 to see the Kanban Board in action!
 
 ## 📂 Project Structure
 
